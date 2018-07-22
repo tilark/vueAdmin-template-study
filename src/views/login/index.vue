@@ -75,10 +75,12 @@ export default {
         if (valid) {
           this.loading = true
           this.$store.dispatch('Login', this.loginForm).then(() => {
+            console.log('enter handlelogin success')
             this.loading = false
             this.$router.push({ path: '/' })
           }).catch(() => {
             this.loading = false
+            console.log('enter handleLogin error!')
           })
         } else {
           console.log('error submit!!')

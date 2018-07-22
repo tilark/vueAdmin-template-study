@@ -7,6 +7,8 @@ import { getToken } from '@/utils/auth' // 验权
 
 const whiteList = ['/login'] // 不重定向白名单
 router.beforeEach((to, from, next) => {
+  // console.log('enter router.beforeEach')
+  // console.log(to.path)
   NProgress.start()
   if (getToken()) {
     if (to.path === '/login') {

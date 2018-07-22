@@ -1,4 +1,6 @@
 import { login, logout, getInfo } from '@/api/login'
+// import { logout, getInfo } from '@/api/login'
+
 import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const user = {
@@ -27,14 +29,16 @@ const user = {
   actions: {
     // 登录
     Login({ commit }, userInfo) {
+      console.log('enter store user login')
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
         login(username, userInfo.password).then(response => {
-          const data = response.data
+          const data = response
           setToken(data.token)
           commit('SET_TOKEN', data.token)
           resolve()
         }).catch(error => {
+          console.log('enter store user login error')
           reject(error)
         })
       })
@@ -44,16 +48,18 @@ const user = {
     GetInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
         getInfo(state.token).then(response => {
-          const data = response.data
+          const data = response
           if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
             commit('SET_ROLES', data.roles)
           } else {
             reject('getInfo: roles must be a non-null array !')
           }
           commit('SET_NAME', data.name)
-          commit('SET_AVATAR', data.avatar)
+          // commit('SET_AVATAR', data.avatar)
           resolve(response)
         }).catch(error => {
+          console.log('etner GetInfo error')
+          console.log(error)
           reject(error)
         })
       })
