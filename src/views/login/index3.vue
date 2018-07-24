@@ -10,7 +10,7 @@ export default {
   data() {
     return {
       user: null,
-      // signedIn: false
+      signedIn: false,
       mgr: new Oidc.UserManager({
         userStore: new Oidc.WebStorageStateStore(),
         authority: 'http://localhost:5000',
@@ -30,9 +30,9 @@ export default {
       })
     },
     signOut() {
-      // var self = this
+      var self = this
       this.mgr.signoutRedirect().then(function(resp) {
-        // self.signedIn = false
+        self.signedIn = false
         console.log('signed out', resp)
       }).catch(function(err) {
         console.log(err)
@@ -54,27 +54,18 @@ export default {
           self.$store.commit('SET_TOKEN', user.access_token)
           self.$store.commit('SET_ROLES', user.profile)
           self.$store.commit('SET_NAME', user.profile.name)
-          // self.user = user
-          // self.signedIn = true
+          self.user = user
+          self.signedIn = true
           self.$router.push({ path: '/' })
         }
       }).catch(function(err) {
         console.log(err)
-      })
-    },
-    handleLogin() {
-      this.$store.dispatch('Login2').then(() => {
-        console.log('enter handlelogin success')
-        this.$router.push({ path: '/' })
-      }).catch(() => {
-        console.log('enter handleLogin error!')
       })
     }
   },
   mounted() {
     console.log('enter login mounted')
     this.getUser()
-    // this.handleLogin()
   }
 }
 

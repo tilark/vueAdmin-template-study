@@ -1,7 +1,7 @@
 import { login, logout, getInfo } from '@/api/login'
 // import { logout, getInfo } from '@/api/login'
-
 import { getToken, setToken, removeToken } from '@/utils/auth'
+// import Oidc from 'oidc-client'
 
 const user = {
   state: {
@@ -10,7 +10,6 @@ const user = {
     avatar: '',
     roles: []
   },
-
   mutations: {
     SET_TOKEN: (state, token) => {
       state.token = token
@@ -43,7 +42,21 @@ const user = {
         })
       })
     },
-
+    Login2({ commit, state }) {
+      //  处理登录
+      console.log('enter store user login2')
+      return new Promise((resolve, reject) => {
+        login().then(response => {
+          const data = response
+          setToken(data.token)
+          commit('SET_TOKEN', data.token)
+          resolve()
+        }).catch(error => {
+          console.log('enter store user login error')
+          reject(error)
+        })
+      })
+    },
     // 获取用户信息
     GetInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
