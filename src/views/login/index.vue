@@ -73,8 +73,8 @@ export default {
   },
   mounted() {
     console.log('enter login mounted')
-    this.getUser()
-    // this.handleLogin()
+    // this.getUser()
+    this.handleLogin()
   }
 }
 

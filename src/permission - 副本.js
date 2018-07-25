@@ -1,8 +1,8 @@
 import router from './router'
-import store from './store'
+// import store from './store'
 import NProgress from 'nprogress' // Progress 进度条
 import 'nprogress/nprogress.css'// Progress 进度条样式
-import { Message } from 'element-ui'
+// import { Message } from 'element-ui'
 import { getToken } from '@/utils/auth' // 验权
 
 const whiteList = ['/login'] // 不重定向白名单
@@ -18,20 +18,21 @@ router.beforeEach((to, from, next) => {
       // if current page is dashboard will not trigger	afterEach hook, so manually handle it
     } else {
       // console.log('enter not login')
-      if (store.getters.roles.length === 0) {
-        console.log('store.getters.roles is null')
-        store.dispatch('GetInfo2').then(res => { // 拉取用户信息
-          next()
-        }).catch((err) => {
-          store.dispatch('FedLogOut').then(() => {
-            Message.error(err || 'Verification failed, please login again')
-            next({ path: '/' })
-          })
-        })
-      } else {
-        console.log('store.getters.roles is not null')
-        next()
-      }
+      next()
+      // if (store.getters.roles.length === 0) {
+      //   console.log('store.getters.roles is null')
+      //   store.dispatch('GetInfo').then(res => { // 拉取用户信息
+      //     next()
+      //   }).catch((err) => {
+      //     store.dispatch('FedLogOut').then(() => {
+      //       Message.error(err || 'Verification failed, please login again')
+      //       next({ path: '/' })
+      //     })
+      //   })
+      // } else {
+      //   console.log('store.getters.roles is not null')
+      //   next()
+      // }
     }
   } else {
     console.log('token is null')
