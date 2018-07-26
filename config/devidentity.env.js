@@ -8,5 +8,6 @@
 // })
 module.exports = {
   NODE_ENV: '"development3"',
-  BASE_API: '""'
+  BASE_API: '"http://localhost:5001"',
+  IDENTITY_API: '"http://localhost:5001"'
 }

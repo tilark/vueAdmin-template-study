@@ -13,10 +13,10 @@ const user = {
     mgr: new Oidc.UserManager({
       userStore: new Oidc.WebStorageStateStore(),
       authority: 'http://localhost:5000',
-      client_id: 'js2',
+      client_id: 'js3',
       redirect_uri: 'http://localhost:8080/static/callback.html',
       response_type: 'id_token token',
-      scope: 'openid profile api1',
+      scope: 'openid profile identity',
       post_logout_redirect_uri: 'http://localhost:8080/index.html',
       loadUserInfo: true
     })
@@ -46,15 +46,6 @@ const user = {
       }).catch(function(err) {
         console.log(err)
       })
-    },
-    signOut: (state) => {
-      // var self = this
-      state.mgr.signoutRedirect().then(function(resp) {
-        // self.signedIn = false
-        console.log('signed out', resp)
-      }).catch(function(err) {
-        console.log(err)
-      })
     }
   },
 
@@ -78,18 +69,10 @@ const user = {
     Login2(context) {
       //  处理登录
       console.log('enter store user login2')
-      // context.state.mgr.signinRedirect().catch(function(err) {
-      //   console.log(err)
-      // })
       return new Promise((resolve, reject) => {
-        // context.state.mgr.signinRedirect().catch(function(err) {
-        //   console.log(err)
-        // })
         context.state.mgr.getUser().then(function(user) {
-          // console.log(user)
           if (user == null) {
             console.log('enter login2 mgr getUser user is null')
-            // context.state.mgr.signIn()
             context.state.mgr.signinRedirect().catch(function(err) {
               console.log(err)
             })
@@ -102,9 +85,6 @@ const user = {
             context.commit('SET_ROLES', user.profile)
             context.commit('SET_NAME', user.profile.name)
             resolve()
-            // self.user = user
-            // self.signedIn = true
-            // self.$router.push({ path: '/' })
           }
         }).catch(function(err) {
           console.log(err)
@@ -118,13 +98,15 @@ const user = {
           // console.log(user)
           if (user == null) {
             console.log('enter getInfo2 mgr getUser user is null')
-            state.signIn()
+            state.mgr.signinRedirect().catch(function(err) {
+              console.log(err)
+            })
           } else {
             console.log('enter getInfo2 mgr getUser user is not null')
             console.log(user)
             //  设置vuex, cookies
-            setToken(user.access_token)
-            commit('SET_TOKEN', user.access_token)
+            // setToken(user.access_token)
+            // commit('SET_TOKEN', user.access_token)
             commit('SET_NAME', user.profile.name)
             if (user.profile) {
               commit('SET_ROLES', user.profile)
