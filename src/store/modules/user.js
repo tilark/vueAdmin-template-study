@@ -33,19 +33,6 @@ const user = {
     },
     SET_ROLES: (state, roles) => {
       state.roles = roles
-    },
-    loginSync: (state) => {
-      state.mgr.signinRedirect().catch(function(err) {
-        console.log(err)
-      })
-    },
-    getUser: (state) => {
-      state.mgr.getUser().then(function(user) {
-        // console.log(user)
-        return user
-      }).catch(function(err) {
-        console.log(err)
-      })
     }
   },
 
@@ -82,7 +69,8 @@ const user = {
             //  设置vuex, cookies
             setToken(user.access_token)
             context.commit('SET_TOKEN', user.access_token)
-            context.commit('SET_ROLES', user.profile)
+            //  需要将user.profile转换成array，再赋值给roles
+            context.commit('SET_ROLES', Object.keys(user.profile))
             context.commit('SET_NAME', user.profile.name)
             resolve()
           }
