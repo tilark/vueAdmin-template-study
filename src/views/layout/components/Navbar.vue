@@ -44,7 +44,7 @@ export default {
       this.$store.dispatch('ToggleSideBar')
     },
     logout() {
-      this.$store.dispatch('LogOut').then(() => {
+      this.$store.dispatch('LogOut2').then(() => {
         //  需取消reload，否则不会清除缓存，仍然会自动登录，原因是reload时会重新加载cookie
         // location.reload() // 为了重新实例化vue-router对象 避免bug
       })

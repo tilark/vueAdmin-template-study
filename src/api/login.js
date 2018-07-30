@@ -42,13 +42,10 @@ export function login2() {
     if (mgr !== undefined || mgr !== '') {
       mgr.getUser().then(function(user) {
         if (user == null) {
-          console.log('enter login2 mgr getUser user is null')
           mgr.signinRedirect().catch(function(err) {
             console.log(err)
           })
         } else {
-          console.log('enter login2 mgr getUser user is not null')
-          // console.log(user)
           resolve(user)
         }
       }).catch(function(err) {
@@ -65,13 +62,10 @@ export function getInfo2() {
     if (mgr !== undefined || mgr !== '') {
       mgr.getUser().then(function(user) {
         if (user == null) {
-          console.log('enter login2 mgr getUser user is null')
           mgr.signinRedirect().catch(function(err) {
             console.log(err)
           })
         } else {
-          console.log('enter login2 mgr getUser user is not null')
-          // console.log(user)
           resolve(user)
         }
       }).catch(function(err) {
