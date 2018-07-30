@@ -70,8 +70,8 @@ const user = {
             setToken(user.access_token)
             context.commit('SET_TOKEN', user.access_token)
             //  需要将user.profile转换成array，再赋值给roles
-            context.commit('SET_ROLES', Object.keys(user.profile))
-            context.commit('SET_NAME', user.profile.name)
+            // context.commit('SET_ROLES', Object.keys(user.profile))
+            // context.commit('SET_NAME', user.profile.name)
             resolve()
           }
         }).catch(function(err) {
@@ -97,7 +97,7 @@ const user = {
             // commit('SET_TOKEN', user.access_token)
             commit('SET_NAME', user.profile.name)
             if (user.profile) {
-              commit('SET_ROLES', user.profile)
+              commit('SET_ROLES', Object.keys(user.profile))
             }
             resolve(user)
           }
